@@ -1,0 +1,5 @@
+{
+  "name": "Sorare Gallery Manager",
+  "description": "A web application to manage your Sorare gallery, view card details, track sales history, and monitor floor prices, based on the 'GESTIONALE SORARE COMPLETO' logic.",
+  "requestFramePermissions": []
+}

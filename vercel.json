@@ -1,0 +1,9 @@
+
+{
+  "rewrites": [
+    {
+      "source": "/api/graphql",
+      "destination": "https://api.sorare.com/graphql"
+    }
+  ]
+}
