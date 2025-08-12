@@ -35,9 +35,22 @@ const CardItem: React.FC<CardItemProps> = ({ card }) => {
         )
     }
 
-    const xpProgress = card.xp && card.xpNeededForNextGrade
-        ? ((card.xp - card.grade * 1000) / (card.xpNeededForNextGrade - card.grade * 1000)) * 100
-        : 0;
+    const xpProgress = (() => {
+        if (typeof card.xp !== 'number' || typeof card.xpNeededForNextGrade !== 'number' || typeof card.grade !== 'number') {
+            return 0;
+        }
+        const xpForCurrentLevelStart = card.grade * 1000;
+        const totalXpNeededForThisLevel = card.xpNeededForNextGrade - xpForCurrentLevelStart;
+        
+        if (totalXpNeededForThisLevel <= 0) {
+            return 100; // Max level or data issue
+        }
+
+        const currentXpProgressInLevel = card.xp - xpForCurrentLevelStart;
+        const progressPercentage = (currentXpProgressInLevel / totalXpNeededForThisLevel) * 100;
+        
+        return Math.max(0, Math.min(progressPercentage, 100)); // Clamp between 0 and 100
+    })();
         
     const getFloorPrices = (card: CardData) => {
         switch (card.rarity) {
